@@ -3,6 +3,15 @@
 <% @boards.each do |board| %>
    <%= board.name %>
 
-   
-   <% end %>
+   <div>
+      <%= link_to edit_board_path(board), class: "" do %>
+         <span>edit</span>
+      <% end %>
+   </div>
+   <div>
+      <%= link_to board_path(board), data: { "turbo-method": :delete }, class: "" do %>
+         <span>delete</span>
+      <% end %>
+   </div>
+<% end %>
 

@@ -1,0 +1,16 @@
+<%= form_with model: board, local: true, class:"" do |f| %>
+
+<% if board.new_record? %>
+   <h3>New Board</h3>
+   <p>This form creates a new board.</p>
+<% else %>
+   <h3>Edit Board</h3>
+   <p>This form edits a board.</p>
+<% end %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= link_to "Cancel", root_path%>
+<%= f.submit "Update Board" %>
+<% end %>
