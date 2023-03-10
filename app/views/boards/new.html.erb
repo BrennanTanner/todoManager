@@ -1,0 +1,11 @@
+<p>new board template</p>
+
+<%= form_with model: @board, local: true, class:"" do |f| %>
+
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= link_to "Cancel", root_path%>
+<%= f.submit "Create Board" %>
+<% end %>
