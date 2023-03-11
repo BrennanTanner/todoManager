@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :list do
-    board { nil }
+    board
     title { "MyString" }
     class_list { "MyString" }
   end
