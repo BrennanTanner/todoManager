@@ -1,7 +1,7 @@
 <p>Logged in</p>
 
 <% @boards.each do |board| %>
-   <%= board.name %>
+   <%= link_to board.name, board_path(board), class: "link" %>
 
    <div>
       <%= link_to edit_board_path(board), class: "" do %>

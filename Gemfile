@@ -79,3 +79,5 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
 end
 
+
+gem "importmap-rails", "~> 1.1"
