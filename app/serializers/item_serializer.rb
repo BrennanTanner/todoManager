@@ -1,5 +1,5 @@
 class ItemSerializer
   include JSONAPI::Serializer
-  attributes :title
+  attributes :title, :list_id
 end
  

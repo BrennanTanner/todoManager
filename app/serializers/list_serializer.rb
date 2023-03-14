@@ -2,7 +2,7 @@ class ListSerializer
   include JSONAPI::Serializer
   attributes :title
 
-  attribute :items do |list|
-    ItemSerializer.new(list.items).serializable_hash
+  attribute :items do |object|
+    ItemSerializer.new(object.items.order(position: :asc)).serializable_hash
   end
 end

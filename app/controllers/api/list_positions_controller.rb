@@ -1,6 +1,5 @@
 module Api
-   class ListPositionController < ApplicationController
-
+   class ListPositionsController < ApplicationController
       protect_from_forgery with: :null_session
 
       def update
@@ -12,7 +11,8 @@ module Api
             list.position = index
          end
 
-         List.import lists, on_duplicate_key_update: { conflict_target: [:id] [:position] }
+         List.import lists, on_duplicate_key_update: { conflict_target: [:id], columns: [:position] }
+
          render json: ListSerializer.new(lists).serializable_hash.to_json
       end
 
