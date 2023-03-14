@@ -4,45 +4,54 @@ import { get, map, isNull, sample } from 'lodash';
 
 export default class extends Controller {
    HEADERS = { ACCEPT: 'application/json' };
-   BACKGROUND_COLORS = ['blue', 'red', 'green', 'yellow']
+   BACKGROUND_COLORS = ['blue', 'red', 'green', 'yellow'];
+
+   getHeaderTitles(){
+      return Array.from(document.getElementsByClassName('kanban-title-board'));
+   }
+
+   addPointer(){
+      this.getHeaderTitles().forEach((headerTitle) => {
+         headerTitle.classList.add('cursor-pointer');
+      });
+   }
+
+   addLinkToHeaderTitles(boards) {
+      this.getHeaderTitles().forEach((headerTitle, index) => {
+         headerTitle.addEventListener('click', () => {
+            Turbo.visit(`${this.element.dataset.boardListUrl}/${boards[index].id}/edit`);
+         });
+      });
+   }
+
    connect() {
       axios
          .get(this.element.dataset.apiUrl, { headers: this.HEADERS })
-
-         
          .then((response) => {
-            console.log(response);
             this.buildKanban(this.buildBoards(response['data']));
+            this.addPointer();
+            this.addLinkToHeaderTitles(this.buildBoards(response['data']));
          });
    }
 
-   buildClassList(classList) {
-      //return sample(this.BACKGROUND_COLORS);
 
-      if (isNull(classList)) {
-         return '';
-      }
-
-      return classList.split(' ').join(', ');
-   }
 
    buildItems(items) {
       return map(items, (item) => {
          return {
-            'id': get(item, 'id'),
-            'title': get(item, 'attributes.title'),
-            'class': this.buildClassList(get(item, 'attributes.class_list')),
+            id: get(item, 'id'),
+            title: get(item, 'attributes.title'),
          };
       });
+
    }
 
    buildBoards(boardData) {
       return map(boardData['data'], (board) => {
          return {
-            'id': get(board, 'id'),
-            'title': get(board, 'attributes.title'),
-            'class': this.buildClassList(get(board, 'attributes.class_list')),
-            'item': this.buildItems(get(board, 'attributes.items.data')),
+            id: get(board, 'id'),
+            title: get(board, 'attributes.title'),
+            item: this.buildItems(get(board, 'attributes.items.data')),
          };
       });
    }
@@ -54,6 +63,9 @@ export default class extends Controller {
          itemAddOptions: {
             enabled: true,
          },
+         //buttonClick(click, boards);
+         
       });
+      console.log(boards);
    }
 }

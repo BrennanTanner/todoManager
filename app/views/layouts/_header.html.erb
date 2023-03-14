@@ -20,7 +20,15 @@
          <%= link_to "Dashboard", root_path %>
         </li>
         <li class="nav-item">
-          <%= link_to "New Board", new_board_path %>
+          <% if controller_name == "boards" && action_name == "show" %>
+            <%= link_to new_board_list_path(@board) do %>
+            <span>New List</span>
+            <% end %>
+          <% else %>
+            <%= link_to new_board_path do %>
+            <span>New Board</span>
+            <% end %>
+          <% end %>
         </li>
       </ul>
     </div>

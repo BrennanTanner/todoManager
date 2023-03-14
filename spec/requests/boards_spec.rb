@@ -95,4 +95,3 @@ RSpec.describe "Boards", type: :request do
       end
    end
 end
-

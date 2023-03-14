@@ -1,0 +1,16 @@
+<%= form_with model: [board, list], local: true, class:"" do |f| %>
+
+   <% if @list.new_record? %>
+      <h3>New List</h3>
+      <p>This form creates a new list.</p>
+   <% else %>
+      <h3>Edit List <%= list.title %></h3>
+      <p>This form edits a list.</p>
+   <% end %>
+
+   <%= f.label :title %>
+   <%= f.text_field :title %>
+
+   <%= link_to "Cancel", root_path%>
+   <%= f.submit "Update List" %>
+<% end %>
