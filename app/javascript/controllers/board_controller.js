@@ -16,11 +16,33 @@ export default class extends Controller {
       });
    }
 
+   addHeaderDeleteButtons(boards) {
+      this.getHeaderTitles().forEach((headerTitle, index) => {
+         headerTitle.addEventListener('click', () =>{
+            turbo
+         })
+      })
+   }
+
+   buildDeleteButton(boardId) {
+      const button = document.createElement('button');
+      button.classList.add('kanban-title-button');
+      button.textContent = 'x';
+      button.addEventListener('click', (e) => {
+         e.preventDefault();
+         axios.delete(`${this.element.dataset.boardListUrl}/${boardId}`, {
+            headers: this.HEADERS 
+         }).then((_) => {
+            Turbo.visit(window.location.href);
+         });
+      });
+      return button;
+   
+   }
+
    addLinkToHeaderTitles(boards) {
       this.getHeaderTitles().forEach((headerTitle, index) => {
-         headerTitle.addEventListener('click', () => {
-            Turbo.visit(`${this.element.dataset.boardListUrl}/${boards[index].id}/edit`);
-         });
+         headerTitle.appendChild(this.buildDeleteButton(boards[index].id));
       });
    }
 
@@ -31,10 +53,9 @@ export default class extends Controller {
             this.buildKanban(this.buildBoards(response['data']));
             this.addPointer();
             this.addLinkToHeaderTitles(this.buildBoards(response['data']));
+            this.addHeaderDeleteButtons(this.buildBoards(response['data']))
          });
    }
-
-
 
    buildItems(items) {
       return map(items, (item) => {
@@ -56,6 +77,16 @@ export default class extends Controller {
       });
    }
 
+   updateListPosition(el) {
+      axios.put(`${this.element.dataset.listPositionsApiUrl }_positions/${el.dataset.id}`, {
+         position: el.dataset.order - 1
+      }, {
+         headers: this.HEADERS
+      }).then((response) => {
+
+      });
+   }
+
    buildKanban(boards) {
       new jKanban({
          element: `#${this.element.id}`,
@@ -63,7 +94,12 @@ export default class extends Controller {
          itemAddOptions: {
             enabled: true,
          },
-         //buttonClick(click, boards);
+         buttonClick: (el, boardId) => {
+            Turbo.visit(`/lists/${boardId}/items/new`);
+         },
+         dragendBoard: (el) => {
+            this.updateListPosition(el);
+         },
          
       });
       console.log(boards);

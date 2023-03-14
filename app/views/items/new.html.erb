@@ -1,0 +1,19 @@
+<%= form_with model: [@list, @item], local: true, class:"" do |f| %>
+
+   <% if @item.new_record? %>
+      <h3>New Item</h3>
+      <p>This form creates a new item.</p>
+   <% else %>
+      <h3>Edit Item <%= item.title %></h3>
+      <p>This form edits a item.</p>
+   <% end %>
+
+   <%= f.label :title %>
+   <%= f.text_field :title %>
+
+   <%= f.label :description %>
+   <%= f.text_area :description %>
+
+   <%= link_to "Cancel", root_path%>
+   <%= f.submit "Update Item" %>
+<% end %>
