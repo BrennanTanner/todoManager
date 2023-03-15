@@ -1,38 +1,95 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="https://mdbgo.com/">
+      <img
+        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+        height="16"
+        alt="MDB Logo"
+        loading="lazy"
+        style="margin-top: -1px;"
+      />
+    </a>
+
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <% if user_signed_in? %>
-          <li class="nav-item">
-          <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete } %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-          <%= link_to "register", new_user_registration_path %>
-          <%= link_to "Log in", new_user_session_path %>
-        </li>
-        <% end %>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-         <%= link_to "Dashboard", root_path %>
-        </li>
-        <li class="nav-item">
-          <% if controller_name == "boards" && action_name == "show" %>
-            <%= link_to new_board_list_path(@board) do %>
-            <span>New List</span>
-            <% end %>
-          <% else %>
-            <%= link_to new_board_path do %>
-            <span>New Board</span>
-            <% end %>
+          <%= link_to root_path do %>
+            <a class="nav-link" href="#">Dashboard</a>
           <% end %>
         </li>
       </ul>
-    </div>
-  </div>
-</nav>
+      <!-- Left links -->
 
+      <div class="d-flex align-items-center">
+
+      <% if user_signed_in? %>
+
+
+        <% if controller_name == "boards" && action_name == "show" %>
+          <%= link_to new_board_list_path(@board) do %>
+            <button type="button" class="btn btn-primary me-3">
+              <span> New List </span>
+            </button>
+          <% end %>
+        <% else %>
+
+          <%= link_to new_board_path do %>
+            <button type="button" class="btn btn-primary me-3">
+              <span>New Board</span>
+            </button>
+          <% end %>
+        <% end %>
+
+        <%= link_to destroy_user_session_path, data: { "turbo-method": :delete } do %>
+          <button type="button" class="btn btn-link px-3 me-2">
+            <span> Log out </span>
+          </button>
+        <% end %>
+
+      <% else %>
+        
+        <%= link_to new_user_registration_path do %>
+          <button type="button" class="btn btn-primary me-3">
+            <span> Register </span>
+          </button>
+        <% end %>
+
+        <%= link_to new_user_session_path do %>
+          <button type="button" class="btn btn-link px-3 me-2">
+           <span> Log in </span>
+          </button>
+        <% end %>
+
+      <% end %>
+        <a
+          class="btn btn-dark px-3"
+          href="https://github.com/mdbootstrap/mdb-ui-kit"
+          role="button"
+          ><i class="fab fa-github"></i
+        ></a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
         
