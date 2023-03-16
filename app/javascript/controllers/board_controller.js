@@ -63,6 +63,8 @@ export default class extends Controller {
             'id': get(item, 'id'),
             'title': get(item, 'attributes.title'),
             'list-id': get(item, 'attributes.list_id'),
+            'bs-toggle': "modal",
+            'bs-target': "#staticBackdrop",
          };
       });
 
@@ -132,6 +134,9 @@ export default class extends Controller {
          boards: boards,
          itemAddOptions: {
             enabled: true,
+         },
+         click: (el) => {
+            
          },
          buttonClick: (el, boardId) => {
             Turbo.visit(`/lists/${boardId}/items/new`);

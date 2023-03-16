@@ -1,95 +1,79 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Container wrapper -->
-  <div class="container">
-    <!-- Navbar brand -->
-    <a class="navbar-brand me-2" href="https://mdbgo.com/">
-      <img
-        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-        height="16"
-        alt="MDB Logo"
-        loading="lazy"
-        style="margin-top: -1px;"
-      />
+<nav class="navbar navbar-dark navbar-expand-lg bg-body-tertiary bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Todo Manager
     </a>
-
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarButtonsExample"
-      aria-controls="navbarButtonsExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarButtonsExample">
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <a class="navbar-brand" href="#">
+      <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Todo Manager
+    </a>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to root_path do %>
-            <a class="nav-link" href="#">Dashboard</a>
+          <%= link_to "Dashboard", root_path, class: "nav-link" %>
+        </li>
+        </ul>
+
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <% if user_signed_in? %>
+
+          <% if controller_name == "boards" && action_name == "show" %>
+
+            <li class="nav-item">
+              <%= link_to new_board_list_path(@board) do %>
+                <button type="button" class="btn btn-primary me-3">
+                  <span> New List </span>
+                </button>
+              <% end %>
+            </li>
+
+          <% else %>
+
+          <li class="nav-item">
+            <%= link_to new_board_path do %>
+              <button type="button" class="btn btn-primary me-3">
+                <span>New Board</span>
+              </button>
+            <% end %>
+          </li>
+        <% end %>
+
+        <li class="nav-item">
+          <%= link_to destroy_user_session_path, data: { "turbo-method": :delete } do %>
+            <button type="button" class="btn btn-link px-3 me-2">
+              <span> Log out </span>
+            </button>
           <% end %>
         </li>
-      </ul>
-      <!-- Left links -->
-
-      <div class="d-flex align-items-center">
-
-      <% if user_signed_in? %>
-
-
-        <% if controller_name == "boards" && action_name == "show" %>
-          <%= link_to new_board_list_path(@board) do %>
-            <button type="button" class="btn btn-primary me-3">
-              <span> New List </span>
-            </button>
-          <% end %>
-        <% else %>
-
-          <%= link_to new_board_path do %>
-            <button type="button" class="btn btn-primary me-3">
-              <span>New Board</span>
-            </button>
-          <% end %>
-        <% end %>
-
-        <%= link_to destroy_user_session_path, data: { "turbo-method": :delete } do %>
-          <button type="button" class="btn btn-link px-3 me-2">
-            <span> Log out </span>
-          </button>
-        <% end %>
 
       <% else %>
         
-        <%= link_to new_user_registration_path do %>
-          <button type="button" class="btn btn-primary me-3">
-            <span> Register </span>
-          </button>
-        <% end %>
+        <li class="nav-item">
+          <%= link_to new_user_registration_path do %>
+            <button type="button" class="btn btn-primary me-3">
+              <span> Register </span>
+            </button>
+          <% end %>
+        </li>
 
-        <%= link_to new_user_session_path do %>
-          <button type="button" class="btn btn-link px-3 me-2">
-           <span> Log in </span>
-          </button>
-        <% end %>
-
+        <li class="nav-item">
+          <%= link_to new_user_session_path do %>
+            <button type="button" class="btn btn-link px-3 me-2">
+            <span> Log in </span>
+            </button>
+          <% end %>
+        </li>
       <% end %>
-        <a
-          class="btn btn-dark px-3"
-          href="https://github.com/mdbootstrap/mdb-ui-kit"
-          role="button"
-          ><i class="fab fa-github"></i
-        ></a>
+        </ul>
       </div>
     </div>
-    <!-- Collapsible wrapper -->
   </div>
-  <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->
-        
